@@ -13,13 +13,15 @@ export default function App() {
       getNextPageParam: (lastPage) => lastPage.nextPage,
     });
 
-  const { ref, inView } = useInView();
-
-  useEffect(() => {
-    if (inView) {
-      fetchNextPage();
+  const { ref } = useInView({
+    onChange(inView, entry){
+        if(inView){
+          fetchNextPage()
+        }
     }
-  }, [fetchNextPage, inView]);
+  });
+
+  
 
   return status === 'pending' ? (
     <div>Loading...</div>
